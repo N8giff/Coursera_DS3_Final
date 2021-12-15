@@ -1,3 +1,4 @@
+```	
 	Peer-graded Assignment: Getting and Cleaning Data Course Project
 			Nathan Giffard, 12/15/21
 
@@ -32,7 +33,8 @@ Data: Human Activity Zip File
 	◦	df_merged exported as a df_merged.csv
 
 5. Extract only the measurements on the mean and standard deviation for each measurement
-	◦	df_trim (10299 rows, 88 columns) is created by subsetting df_merged using select() for the following columns: subject, code and columns that measure the mean and standard deviation (std) 		 
+	◦	df_trim (10299 rows, 88 columns) is created by subsetting df_merged using select() for the following columns: subject, code and 		columns that measure the mean and standard deviation (std) 		
+	
 6. Use descriptive activity names to name the activities in the data set
 	◦	The code column of the df_trim is replaced with corresponding activity taken from second column of the activities variable
 
@@ -57,3 +59,4 @@ Data: Human Activity Zip File
 
 9. Export TidyData 
 	◦	The final data frame is exported as  TidyData.txt and a TidyData.csv 		
+```
