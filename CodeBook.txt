@@ -1,0 +1,59 @@
+	Peer-graded Assignment: Getting and Cleaning Data Course Project
+			Nathan Giffard, 12/15/21
+
+Goal: The run_analysis.R script cleans the UCI HAR Dataset by following the 5 steps in the project description: 	
+	1.	Merge the training and the test sets to create one data set.
+	2.	Extract only the measurements on the mean and standard deviation for each measurement. 
+	3.	Use descriptive activity names to name the activities in the data set
+	4.	Appropriately label the data set with descriptive variable names. 
+	5.	Create a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+Data: Human Activity Zip File
+
+1. Download the dataset
+	◦	Zip file downloaded and opened under the folder called UCI HAR Dataset 
+2. Assign each .txt file to variables
+	1.	features <- features.txt : 561 rows, 2 columns  Accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
+	2.	activities <- activity_labels.txt : 6 rows, 2 columns List of activity codes and corresponding activities   
+	3.	subject_test <- test/subject_test.txt : 2947 rows, 1 column Test data for 9/30 test subjects 
+	4.	x_test <- test/X_test.txt : 2947 rows, 561 columns Recorded features for test data
+	5.	y_test <- test/y_test.txt : 2947 rows, 1 columns Test data activity codes
+	6.	subject_train <- test/subject_train.txt : 7352 rows, 1 column Train data of 21/30 subjects 
+	7.	x_train <- test/X_train.txt : 7352 rows, 561 columns Recorded features for train data
+	8.	y_train <- test/y_train.txt : 7352 rows, 1 columns Train data activity codes
+
+3. Merge the training and the test sets to create one data set
+	◦	X (10299 rows, 561 columns) is created by merging x_train and x_test using rbind() function
+	◦	Y (10299 rows, 1 column) is created by merging y_train and y_test using rbind() function
+	◦	Subject (10299 rows, 1 column) is created by merging subject_train and subject_test using rbind() function
+	◦	df_merged (10299 rows, 563 column) is created by merging Subject, Y and X using cbind() function
+
+4. Export merged dataset
+	◦	df_merged exported as a df_merged.csv
+
+5. Extract only the measurements on the mean and standard deviation for each measurement
+	◦	df_trim (10299 rows, 88 columns) is created by subsetting df_merged using select() for the following columns: subject, code and columns that measure the mean and standard deviation (std) 		 
+6. Use descriptive activity names to name the activities in the data set
+	◦	The code column of the df_trim is replaced with corresponding activity taken from second column of the activities variable
+
+7. Appropriately labels the data set with descriptive variable names
+	◦	Column for code in df_trim renamed Activities
+	◦	Column for subject in df_trim capitalized to Subject
+	◦	All ‘Acc’ in column names replaced by Accelerometer using gsub()
+	◦	All ‘Gyro’ in column names replaced by Gyroscope using gsub()
+	◦	All ‘BodyBody’ in column names replaced by Body using gsub()
+	◦	All ‘Mag’ in column names replaced by Magnitude using gsub()
+	◦	Column for angle in df_trim capitalized to Angle using gsub()
+	◦	Column for gravity in df_trim capitalized to Gravity using gsub()
+	◦	All column names that start with ‘f’ replaced by Frequency with gsub()
+	◦	All column names that start with ‘t’ replaced by Time using gsub()
+	◦	Columns ending with ‘-mean()’ replaced by Mean using gsub()
+	◦	Columns ending with ‘-std()’ replaced by STD using gsub()
+	◦	Columns ending with ‘-freq()’ replaced by Frequency using gsub()
+ 
+8. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+	◦	TidyData (180 rows, 88 columns) is created by grouping df_trim by subject and activity
+	◦	The new data frame is summarized by taking the mean of each variable
+
+9. Export TidyData 
+	◦	The final data frame is exported as  TidyData.txt and a TidyData.csv 		
